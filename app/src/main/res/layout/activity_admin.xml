@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="8dp"
+    tools:context=".AdminActivity">
+
+    <ImageView
+        android:id="@+id/ivBlogImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile" />
+
+    <EditText
+        android:id="@+id/etBlogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivBlogImage"
+        android:layout_centerHorizontal="true"
+        android:hint="Enter your blog title"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etBlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etBlogTitle"
+        android:layout_marginTop="6dp"
+        android:hint="Write your blog here..."
+        android:lines="6"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etBlog"
+        android:layout_centerHorizontal="true"
+        android:background="#FAD195"
+        android:text="Post" />
+
+    <Button
+        android:id="@+id/btnMyposts"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnPost"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="#FAD195"
+        android:text="View my posts" />
+
+</RelativeLayout>
