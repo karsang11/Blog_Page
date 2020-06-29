@@ -54,10 +54,12 @@ public class UserActivity extends AppCompatActivity {
         if (id == R.id.action_profile) {
             Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.action_logout) ;
-        Intent intent = new Intent(UserActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+        }
+        if (id == R.id.action_logout) {
+            Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 }

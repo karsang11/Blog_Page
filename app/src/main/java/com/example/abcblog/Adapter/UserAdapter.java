@@ -1,16 +1,19 @@
 package com.example.abcblog.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.abcblog.AdminpostdetailActivity;
 import com.example.abcblog.Model.Posts;
 import com.example.abcblog.R;
 
@@ -35,10 +38,32 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Posts posts = postsList.get(position);
+        final Posts posts = postsList.get(position);
         holder.img.setImageResource(posts.getImageid());
         holder.titl.setText(posts.getTitle());
         holder.blg.setText(posts.getBlog());
+
+        holder.titl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(yContext, AdminpostdetailActivity.class);
+//                intent.putExtra("image", posts.getImageid());
+//                intent.putExtra("title", posts.getTitle());
+//                intent.putExtra("blog", posts.getBlog());
+                yContext.startActivity(intent);
+            }
+        });
+
+        holder.blg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(yContext, AdminpostdetailActivity.class);
+//                intent.putExtra("image", posts.getImageid());
+//                intent.putExtra("title", posts.getTitle());
+//                intent.putExtra("blog", posts.getBlog());
+                yContext.startActivity(intent);
+            }
+        });
 
     }
 
