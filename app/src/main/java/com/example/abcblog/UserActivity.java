@@ -27,7 +27,7 @@ public class UserActivity extends AppCompatActivity {
 
         userrecyclerview = findViewById(R.id.userrecyclerview);
 
-        List<Posts> postsList = new ArrayList<>();
+        List<Posts>postsList = new ArrayList<>();
 
         postsList.add(new Posts(R.drawable.profile, "Why corona?", "Corona is...."));
         postsList.add(new Posts(R.drawable.profile, "Why abc?", "aoiwefw is...."));
@@ -58,7 +58,6 @@ public class UserActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             Intent intent = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminpostdetailActivity"></activity>
+        <activity android:name=".EditpostActivity"></activity>
+        <activity android:name=".AdminpostdetailActivity" />
         <activity android:name=".ProfileeditActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UserActivity" />

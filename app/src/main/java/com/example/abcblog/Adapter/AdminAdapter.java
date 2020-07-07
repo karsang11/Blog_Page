@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abcblog.AdminActivity;
+import com.example.abcblog.EditpostActivity;
 import com.example.abcblog.Model.Posts;
+import com.example.abcblog.ProfileActivity;
 import com.example.abcblog.ProfileeditActivity;
 import com.example.abcblog.R;
 
@@ -48,7 +50,8 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
         holder.adminprofileimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProfileeditActivity.class);
+                //check profile
+                Intent intent = new Intent(mContext, ProfileActivity.class);
                 mContext.startActivity(intent);
             }
         });
@@ -56,7 +59,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
         holder.editpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AdminActivity.class);
+                Intent intent = new Intent(mContext, EditpostActivity.class);
                 mContext.startActivity(intent);
             }
         });

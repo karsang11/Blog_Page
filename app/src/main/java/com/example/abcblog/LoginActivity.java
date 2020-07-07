@@ -51,12 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Correct Admin!!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                     startActivity(intent);
-                    finish();
                 } else if (username.getText().toString().equals("jimmy") && password.getText().toString().equals("jimmy")) {
                     Toast.makeText(LoginActivity.this, "Correct user!!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                     startActivity(intent);
-                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Wrong username and password", Toast.LENGTH_SHORT).show();
                 }

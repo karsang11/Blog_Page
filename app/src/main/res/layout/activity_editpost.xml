@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4B470"
+    tools:context=".EditpostActivity">
+
+    <TextView
+        android:id="@+id/tvaaa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Edit Post"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etEditTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvaaa"
+        android:layout_centerHorizontal="true"
+        android:hint="Title"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/etEditPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEditTitle"
+        android:hint="Post"
+        android:lines="6"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btnEditEdit"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEditPost"
+        android:layout_centerHorizontal="true"
+        android:text="Edit Post"
+        android:textAllCaps="false"
+        android:textSize="25sp" />
+
+</RelativeLayout>
