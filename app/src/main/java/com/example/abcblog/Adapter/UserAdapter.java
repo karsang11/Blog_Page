@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +37,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         final Posts posts = postsList.get(position);
-        holder.img.setImageResource(posts.getImageid());
+        holder.img.setImageResource(R.drawable.ic_account);
         holder.titl.setText(posts.getTitle());
         holder.blg.setText(posts.getBlog());
 
@@ -48,8 +46,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(yContext, AdminpostdetailActivity.class);
 //                intent.putExtra("image", posts.getImageid());
-//                intent.putExtra("title", posts.getTitle());
-//                intent.putExtra("blog", posts.getBlog());
+                intent.putExtra("title", posts.getTitle());
+                intent.putExtra("blog", posts.getBlog());
                 yContext.startActivity(intent);
             }
         });
@@ -59,8 +57,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(yContext, AdminpostdetailActivity.class);
 //                intent.putExtra("image", posts.getImageid());
-//                intent.putExtra("title", posts.getTitle());
-//                intent.putExtra("blog", posts.getBlog());
+                intent.putExtra("title", posts.getTitle());
+                intent.putExtra("blog", posts.getBlog());
                 yContext.startActivity(intent);
             }
         });

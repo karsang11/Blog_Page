@@ -13,14 +13,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.abcblog.AdminActivity;
 import com.example.abcblog.EditpostActivity;
 import com.example.abcblog.Model.Posts;
+import com.example.abcblog.Model.PostsCrud;
 import com.example.abcblog.ProfileActivity;
-import com.example.abcblog.ProfileeditActivity;
-import com.example.abcblog.R;
 
+import com.example.abcblog.R;
+import com.example.abcblog.api.BlogAPI;
+import com.example.abcblog.strictmode.StrictMode;
+import com.example.abcblog.url.URL;
+
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHolder> {
     Context mContext;
@@ -42,8 +49,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
 
     @Override
     public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
-        Posts posts = postsList.get(position);
-        holder.adminprofileimage.setImageResource(posts.getImageid());
+        final Posts posts = postsList.get(position);
+        final String id=postsList.get(position).get_id();
+        holder.adminprofileimage.setImageResource(R.drawable.ic_account);
         holder.posttitle.setText(posts.getTitle());
         holder.postblog.setText(posts.getBlog());
 
@@ -60,6 +68,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditpostActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("title",posts.getTitle());
+                intent.putExtra("blog",posts.getBlog());
                 mContext.startActivity(intent);
             }
         });
@@ -67,7 +78,25 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
         holder.deletepost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
+                //final PostsCrud postsCrud=new PostsCrud(id);
+                BlogAPI blogAPI= URL.getRetrofit().create(BlogAPI.class);
+                Call<Posts> postsCrudCall=blogAPI.removeblog(id);
+                StrictMode.StrictMode();
+                try
+                {
+                    Response<Posts> postsCrudResponse=postsCrudCall.execute();
+                    if(postsCrudResponse.isSuccessful())
+                    {
+                        Toast.makeText(mContext, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(mContext, "Unable to delete", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
     }
