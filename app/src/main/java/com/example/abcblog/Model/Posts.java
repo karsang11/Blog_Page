@@ -4,17 +4,35 @@ public class Posts {
     private int imageid;
     private String title;
     private String blog;
-
+    private String _id;
     //Constructor
 
 
+    public Posts(String title,String blog)
+    {
+        this.title=title;
+        this.blog=blog;
+    }
     public Posts(int imageid, String title, String blog) {
         this.imageid = imageid;
         this.title = title;
         this.blog = blog;
     }
 
-    //Getter and setter
+    public Posts(String _id) {
+        this._id = _id;
+    }
+
+//Getter and setter
+
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public int getImageid() {
         return imageid;
