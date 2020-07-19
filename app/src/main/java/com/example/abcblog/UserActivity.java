@@ -13,9 +13,16 @@ import android.widget.Toast;
 
 import com.example.abcblog.Adapter.UserAdapter;
 import com.example.abcblog.Model.Posts;
+import com.example.abcblog.api.BlogAPI;
+import com.example.abcblog.url.URL;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.POST;
 
 public class UserActivity extends AppCompatActivity {
     private RecyclerView userrecyclerview;
@@ -27,18 +34,39 @@ public class UserActivity extends AppCompatActivity {
 
         userrecyclerview = findViewById(R.id.userrecyclerview);
 
-        List<Posts>postsList = new ArrayList<>();
-
-        postsList.add(new Posts(R.drawable.profile, "Why corona?", "Corona is...."));
-        postsList.add(new Posts(R.drawable.profile, "Why abc?", "aoiwefw is...."));
-        postsList.add(new Posts(R.drawable.profile, "BLog?", "snowelhwihwe kguukgu ukuyg guyfuyf fyftdtgu"));
-        postsList.add(new Posts(R.drawable.profile, "Why assignmrnt?", "blah blah vlah"));
-
+        List<Posts>postsList = getList();
         UserAdapter userAdapter = new UserAdapter(this, postsList);
         userrecyclerview.setAdapter(userAdapter);
         userrecyclerview.setLayoutManager(new LinearLayoutManager(this));
 
     }
+
+
+    public List<Posts> getList()
+    {
+        List<Posts> pList=new ArrayList<>();
+        BlogAPI blogAPI= URL.getRetrofit().create(BlogAPI.class);
+        Call<List<Posts>> postcall=blogAPI.getBlog(URL.token);
+        try {
+            Response<List<Posts>> listResponse=postcall.execute();
+            if(listResponse.isSuccessful())
+            {
+                pList=listResponse.body();
+                return pList;
+            }
+            else
+            {
+                Toast.makeText(this, "No Posts to show", Toast.LENGTH_SHORT).show();
+            }
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return pList;
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,6 +84,7 @@ public class UserActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (id == R.id.action_logout) {
+            URL.token+=null;
             Intent intent = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(intent);
         }

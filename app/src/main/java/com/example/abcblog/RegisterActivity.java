@@ -9,8 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.abcblog.Model.UserSignUp;
+import com.example.abcblog.api.UserAPI;
+import com.example.abcblog.serverresponse.SignUpResponse;
+import com.example.abcblog.strictmode.StrictMode;
+import com.example.abcblog.url.URL;
+
+import java.io.IOException;
 import java.util.PriorityQueue;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -59,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                sign();
 
             }
         });
@@ -72,4 +84,35 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void sign()
+    {
+        String first=fname.getText().toString();
+        String Second=lname.getText().toString();
+        String user=username.getText().toString();
+        String pass=password.getText().toString();
+        final UserSignUp userSignUp=new UserSignUp(first,Second,user,pass);
+        UserAPI userAPI= URL.getRetrofit().create(UserAPI.class);
+        Call<SignUpResponse> userSignUpCall=userAPI.createUser(userSignUp);
+        StrictMode.StrictMode();
+        try {
+            Response<SignUpResponse> userResponse=userSignUpCall.execute();
+            if(userResponse.isSuccessful())
+            {
+                URL.token+=userResponse.body().getToken();
+                Intent intent=new Intent(RegisterActivity.this,UserActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(this, "Unable to signup", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

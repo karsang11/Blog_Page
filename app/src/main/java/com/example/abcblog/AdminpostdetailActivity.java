@@ -1,10 +1,10 @@
 package com.example.abcblog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminpostdetailActivity extends AppCompatActivity {
     private ImageView image;
@@ -18,5 +18,12 @@ public class AdminpostdetailActivity extends AppCompatActivity {
         image = findViewById(R.id.ivDetailImage);
         title = findViewById(R.id.tvDetailTitle);
         blog = findViewById(R.id.tvDetailBlog);
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null)
+        {
+            title.setText(bundle.getString("title"));
+            blog.setText(bundle.getString("blog"));
+        }
+
     }
 }

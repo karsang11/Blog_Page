@@ -9,15 +9,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.abcblog.Adapter.AdminAdapter;
 import com.example.abcblog.Model.Posts;
+import com.example.abcblog.api.BlogAPI;
+import com.example.abcblog.url.URL;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class AdminpostActivity extends AppCompatActivity {
 
@@ -37,25 +41,36 @@ public class AdminpostActivity extends AppCompatActivity {
 //        });
 
         recyclerView = findViewById(R.id.adminrecyclerview);
-        List<Posts> postsList = new ArrayList<>();
-        postsList.add(new Posts(R.drawable.profile, "Why corona?", "Corona is...."));
-        postsList.add(new Posts(R.drawable.profile, "Why abc?", "aoiwefw is...."));
-        postsList.add(new Posts(R.drawable.profile, "BLog?", "snowelhwihwe kguukgu ukuyg guyfuyf fyftdtgu"));
-        postsList.add(new Posts(R.drawable.profile, "Why assignmrnt?", "blah blah vlah"));
-
-        postsList.add(new Posts(R.drawable.profile, "Why corona?", "Corona is...."));
-        postsList.add(new Posts(R.drawable.profile, "Why abc?", "aoiwefw is...."));
-        postsList.add(new Posts(R.drawable.profile, "BLog?", "snowelhwihwe kguukgu ukuyg guyfuyf fyftdtgu"));
-        postsList.add(new Posts(R.drawable.profile, "Why assignmrnt?", "blah blah vlah"));
-
-        postsList.add(new Posts(R.drawable.profile, "Why corona?", "Corona is...."));
-        postsList.add(new Posts(R.drawable.profile, "Why abc?", "aoiwefw is...."));
-        postsList.add(new Posts(R.drawable.profile, "BLog?", "snowelhwihwe kguukgu ukuyg guyfuyf fyftdtgu"));
-        postsList.add(new Posts(R.drawable.profile, "Why assignmrnt?", "blah blah vlah"));
+        List<Posts> postsList = getList();
 
         AdminAdapter adminAdapter = new AdminAdapter(this, postsList);
         recyclerView.setAdapter(adminAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    public List<Posts> getList()
+    {
+        List<Posts> pList=new ArrayList<>();
+        BlogAPI blogAPI= URL.getRetrofit().create(BlogAPI.class);
+        Call<List<Posts>> postcall=blogAPI.getBlog(URL.token);
+        try {
+            Response<List<Posts>> listResponse=postcall.execute();
+            if(listResponse.isSuccessful())
+            {
+                pList=listResponse.body();
+                return pList;
+            }
+            else
+            {
+                Toast.makeText(this, "No Posts to show", Toast.LENGTH_SHORT).show();
+            }
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return pList;
 
     }
 
