@@ -81,13 +81,6 @@
         android:layout_centerHorizontal="true"
         android:text="Edit" />
 
-    <Button
-        android:id="@+id/btnProfileDelete"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnProfileEdit"
-        android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:text="Delete" />
+
 
 </RelativeLayout>
