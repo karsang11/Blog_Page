@@ -52,6 +52,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminActivity.this, ProfileActivity.class);
+                Toast.makeText(AdminActivity.this, "abc", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
