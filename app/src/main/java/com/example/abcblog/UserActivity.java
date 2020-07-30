@@ -84,7 +84,7 @@ public class UserActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (id == R.id.action_logout) {
-            URL.token+=null;
+            URL.token="Bearer ";
             Intent intent = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(intent);
         }

@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnUserLogin);
         regiser = findViewById(R.id.tvRegister);
 
+        URL.token="Bearer ";
         regiser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

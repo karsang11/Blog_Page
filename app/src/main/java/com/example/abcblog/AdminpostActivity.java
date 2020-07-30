@@ -89,6 +89,7 @@ public class AdminpostActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (id == R.id.action_logout) {
+            URL.token="Bearer ";
             Intent intent = new Intent(AdminpostActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
