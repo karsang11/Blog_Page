@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.abcblog.Model.UserCrud;
@@ -19,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView fname,lname,username;
+    TextView fname, lname, username;
     Button edit, delete;
     UserCrud userCrud;
 
@@ -28,21 +29,27 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Profile");
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         edit = findViewById(R.id.btnProfileEdit);
 
-        fname=findViewById(R.id.tvFirstname);
-        lname=findViewById(R.id.tvLastname);
-        username=findViewById(R.id.tvUsername);
+        fname = findViewById(R.id.tvFirstname);
+        lname = findViewById(R.id.tvLastname);
+        username = findViewById(R.id.tvUsername);
         setNames();
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, ProfileeditActivity.class);
-                intent.putExtra("first",userCrud.getFname());
-                intent.putExtra("last",userCrud.getLname());
-                intent.putExtra("user",userCrud.getUsername());
-                intent.putExtra("pass",userCrud.getPassword());
+                intent.putExtra("first", userCrud.getFname());
+                intent.putExtra("last", userCrud.getLname());
+                intent.putExtra("user", userCrud.getUsername());
+                intent.putExtra("pass", userCrud.getPassword());
                 startActivity(intent);
             }
         });
@@ -50,31 +57,31 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void setNames()
-    {
+    public void setNames() {
 
-        UserAPI userAPI= URL.getRetrofit().create(UserAPI.class);
-        Call<UserCrud> userCrudCall=userAPI.getuser(URL.token);
+        UserAPI userAPI = URL.getRetrofit().create(UserAPI.class);
+        Call<UserCrud> userCrudCall = userAPI.getuser(URL.token);
         try {
-            Response<UserCrud> userCrudResponse=userCrudCall.execute();
+            Response<UserCrud> userCrudResponse = userCrudCall.execute();
 
-            if(userCrudResponse.isSuccessful())
-            {
+            if (userCrudResponse.isSuccessful()) {
 
-                userCrud=userCrudResponse.body();
+                userCrud = userCrudResponse.body();
                 fname.setText(userCrudResponse.body().getFname());
                 lname.setText(userCrudResponse.body().getLname());
                 username.setText(userCrudResponse.body().getUsername());
 
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Unable to Retrieve data at this time", Toast.LENGTH_SHORT).show();
             }
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

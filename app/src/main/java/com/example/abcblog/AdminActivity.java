@@ -1,6 +1,7 @@
 package com.example.abcblog;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -35,12 +36,19 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Admin Post");
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         adminimage = findViewById(R.id.ivBlogImage);
 
         view_posts = findViewById(R.id.btnMyposts);
-        posts=findViewById(R.id.btnPost);
-        title=findViewById(R.id.etBlogTitle);
-        blog=findViewById(R.id.etBlog);
+        posts = findViewById(R.id.btnPost);
+        title = findViewById(R.id.etBlogTitle);
+        blog = findViewById(R.id.etBlog);
 
         posts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,29 +75,23 @@ public class AdminActivity extends AppCompatActivity {
     }
 
 
-    public void createpost()
-    {
-        String tit=title.getText().toString();
-        String blo=blog.getText().toString();
-        final Posts posts=new Posts(tit,blo);
-        BlogAPI blogAPI= URL.getRetrofit().create(BlogAPI.class);
-        Call<Posts> postsCall=blogAPI.createBlog(posts);
+    public void createpost() {
+        String tit = title.getText().toString();
+        String blo = blog.getText().toString();
+        final Posts posts = new Posts(tit, blo);
+        BlogAPI blogAPI = URL.getRetrofit().create(BlogAPI.class);
+        Call<Posts> postsCall = blogAPI.createBlog(posts);
         StrictMode.StrictMode();
         try {
-            Response<Posts> postsResponse=postsCall.execute();
-            if(postsResponse.isSuccessful())
-            {
+            Response<Posts> postsResponse = postsCall.execute();
+            if (postsResponse.isSuccessful()) {
                 Toast.makeText(this, "Blog Added", Toast.LENGTH_SHORT).show();
                 title.setText("");
                 blog.setText("");
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Unable to create blog at the moment", Toast.LENGTH_SHORT).show();
             }
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -115,5 +117,11 @@ public class AdminActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

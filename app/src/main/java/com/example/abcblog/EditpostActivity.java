@@ -1,5 +1,6 @@
 package com.example.abcblog;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -28,16 +29,21 @@ public class EditpostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editpost);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Post");
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         editTitle = findViewById(R.id.etEditTitle);
         editPost = findViewById(R.id.etEditPost);
         editButton = findViewById(R.id.btnEditEdit);
 
-        Bundle bundle=getIntent().getExtras();
-        if(bundle!=null)
-        {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
             editTitle.setText(bundle.getString("title"));
             editPost.setText(bundle.getString("blog"));
-            id=bundle.getString("id");
+            id = bundle.getString("id");
         }
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,28 +54,29 @@ public class EditpostActivity extends AppCompatActivity {
         });
     }
 
-    public void update()
-    {
-        String title,post;
-        title=editTitle.getText().toString();
-        post=editPost.getText().toString();
-        final Posts posts=new Posts(title,post);
-        BlogAPI blogAPI= URL.getRetrofit().create(BlogAPI.class);
-        Call<Posts> postsCall=blogAPI.updateBlog(URL.token,posts,id);
+    public void update() {
+        String title, post;
+        title = editTitle.getText().toString();
+        post = editPost.getText().toString();
+        final Posts posts = new Posts(title, post);
+        BlogAPI blogAPI = URL.getRetrofit().create(BlogAPI.class);
+        Call<Posts> postsCall = blogAPI.updateBlog(URL.token, posts, id);
         try {
-            Response<Posts> postsResponse=postsCall.execute();
-            if(postsResponse.isSuccessful())
-            {
+            Response<Posts> postsResponse = postsCall.execute();
+            if (postsResponse.isSuccessful()) {
                 Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
 
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Unable to update at this time", Toast.LENGTH_SHORT).show();
             }
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

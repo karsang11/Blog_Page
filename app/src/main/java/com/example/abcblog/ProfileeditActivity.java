@@ -1,5 +1,6 @@
 package com.example.abcblog;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -18,17 +19,25 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class ProfileeditActivity extends AppCompatActivity {
-EditText firstname,lastname,username,password;
-Button btn;
+    EditText firstname, lastname, username, password;
+    Button btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profileedit);
-        firstname=findViewById(R.id.etEditFirstName);
-        lastname=findViewById(R.id.etEditLastName);
-        username=findViewById(R.id.etEditUsername);
-        password=findViewById(R.id.etEditPassword);
-        btn=findViewById(R.id.btnEditProfile);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Profile");
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        firstname = findViewById(R.id.etEditFirstName);
+        lastname = findViewById(R.id.etEditLastName);
+        username = findViewById(R.id.etEditUsername);
+        password = findViewById(R.id.etEditPassword);
+        btn = findViewById(R.id.btnEditProfile);
         set();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,11 +48,9 @@ Button btn;
 
     }
 
-    public void set()
-    {
-        Bundle bundle=getIntent().getExtras();
-        if(bundle!=null)
-        {
+    public void set() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
 
             firstname.setText(bundle.getString("first"));
             lastname.setText(bundle.getString("last"));
@@ -52,32 +59,32 @@ Button btn;
         }
     }
 
-    public void update()
-    {
+    public void update() {
 
-        String fname,lname,user,pass;
-        fname=firstname.getText().toString();
-        lname=lastname.getText().toString();
-        user=username.getText().toString();
-        pass=password.getText().toString();
-        final UserCrud userCrud=new UserCrud(fname,lname,user,pass);
-        UserAPI userAPI= URL.getRetrofit().create(UserAPI.class);
-        Call<UserCrud> userCrudCall=userAPI.updateUser(URL.token,userCrud);
+        String fname, lname, user, pass;
+        fname = firstname.getText().toString();
+        lname = lastname.getText().toString();
+        user = username.getText().toString();
+        pass = password.getText().toString();
+        final UserCrud userCrud = new UserCrud(fname, lname, user, pass);
+        UserAPI userAPI = URL.getRetrofit().create(UserAPI.class);
+        Call<UserCrud> userCrudCall = userAPI.updateUser(URL.token, userCrud);
         try {
-            Response<UserCrud> userCrudResponse=userCrudCall.execute();
-            if(userCrudResponse.isSuccessful())
-            {
+            Response<UserCrud> userCrudResponse = userCrudCall.execute();
+            if (userCrudResponse.isSuccessful()) {
                 Toast.makeText(this, "Information Updated", Toast.LENGTH_LONG).show();
                 password.setText("");
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "Unable to update profile at the moment", Toast.LENGTH_SHORT).show();
             }
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }
