@@ -50,6 +50,8 @@ public class AdminActivity extends AppCompatActivity {
         title = findViewById(R.id.etBlogTitle);
         blog = findViewById(R.id.etBlog);
 
+        //checki
+
         posts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
